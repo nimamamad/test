@@ -1,0 +1,137 @@
+<html lang="en">
+
+
+  <head>
+      
+    
+    <style>
+    
+    
+        
+        body {
+			font-family: Arial, Helvetica, sans-serif;
+			text-align: center;
+			width: 100%;
+		}
+		
+		
+		
+		label {
+			display: block;
+			margin-top: 20px;
+		}
+		
+		
+
+		#image-url {
+			padding: 10px;
+			margin: 10px 0;
+			text-align: center;
+			border: none;
+			border-radius: 5px;
+			box-shadow: 0 0 5px #888;
+			width: 76%
+		};
+		
+		
+		
+		#image-url:hover{
+			box-shadow: 0 0 10px #888;
+			
+			
+		}
+		
+	
+		#btn {
+		    text-transform: capitalize;
+			background-color: #09173A;
+			color: white;
+			padding: 18px ;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: clamp( 12px, 20px, 16px);
+			transition: all 0.3s ease;
+			width: 20%
+		};
+		
+		#btn:hover {
+			background-color: #112B6E;
+			box-shadow: 0 0 10px #888;
+		}
+		
+		@media (300px <= width <= 600px){
+		    
+		    #btn{
+		        
+		        font-size: 9px;
+		        padding: 20px 16px 15px 16px;
+		        text-align: center;
+		        
+		    }
+		}
+		
+
+        
+    </style>
+  </head>
+  
+  <body>
+      <div>
+      
+         <input  type="text" id="image-url" placeholder="Enter the image URL">
+    
+          <button id="btn" onclick="downloadImage()" > get image </button>
+          
+      </div>
+    
+
+    <script>
+    
+    
+          const downloadButton = document.getElementById("btn");
+      const pictureUrl = document.getElementById("image-url");
+      
+    
+
+      downloadButton.addEventListener("click", async () => {
+          
+          downloadButton.innerText = "Downloading pic...";
+          
+          try{
+          
+          
+        const response = await fetch(pictureUrl.value);
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "picture.jpg";
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        downloadButton.innerText = "get image";
+        
+          }catch(error) {
+            
+              alert("the URl of the host website is not allowed to automate download , please download manually");
+              
+              
+          
+          
+            }finally {
+              
+              
+
+              
+          };
+          
+      });
+
+      
+     
+
+
+</script>
+  </body>
+</html>
